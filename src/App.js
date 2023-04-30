@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./NavBar";
+import Header from "./Header";
 
 function App() {
   // on load fetch message from BE
@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar></Navbar>
+      <Header/>
       {/* {articles} */}
       {/* Header */}
       {/* search */}

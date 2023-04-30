@@ -1,3 +1,5 @@
+// import 
+
 function Table() {
 
 
@@ -5,3 +7,5 @@ function Table() {
     <table></table>
   </>
 } 
+
+export default Table

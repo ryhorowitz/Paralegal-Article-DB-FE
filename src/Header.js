@@ -2,7 +2,7 @@
 import { AppBar, Toolbar, IconButton, Typography } from '@mui/material'
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 
-function NavBar() {
+function Header() {
 
   return (
     <AppBar position='static'>
@@ -19,4 +19,4 @@ function NavBar() {
   )
 }
 
-export default NavBar
+export default Header
