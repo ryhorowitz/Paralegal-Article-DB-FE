@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useTable } from 'react-table'
+import { useTable, usePagination } from 'react-table'
 
 function Table({ articles }) {
 
@@ -18,9 +18,23 @@ function Table({ articles }) {
         []
     , [articleData])
 
-  const tableInstance = useTable({ columns: articleColumns, data: articleData })
+  const tableInstance = useTable({ columns: articleColumns, data: articleData }, usePagination)
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance
+  const { getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state,
+    prepareRow
+  } = tableInstance
 
   return (
 
@@ -33,7 +47,7 @@ function Table({ articles }) {
                 {headerGroups.map(headerGroup => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map(column => (
-                      <th {...column.getHeaderProps() } >
+                      <th {...column.getHeaderProps()} >
                         {column.render('Header')}
                       </th>
                     ))}
@@ -41,7 +55,7 @@ function Table({ articles }) {
                 ))}
               </thead>
               <tbody {...getTableBodyProps()} className="bg-white divide-y divide-gray-200">
-                {rows.map(row => {
+                {page.map(row => {
                   prepareRow(row)
                   return (
                     <tr {...row.getRowProps()} >
@@ -57,6 +71,38 @@ function Table({ articles }) {
                 })}
               </tbody>
             </table>
+            <div className="pagination">
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </button>{' '}
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {'<'}
+        </button>{' '}
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          {'>'}
+        </button>{' '}
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'>>'}
+        </button>{' '}
+        <span>
+          Page{' '}
+          <strong>
+            {state.pageIndex + 1} of {pageOptions.length}
+          </strong>{' '}
+        </span>
+        <select
+          value={state.pageSize}
+          onChange={e => {
+              setPageSize(Number(e.target.value))
+          }}
+        >
+          {[5, 10, 20].map(pageSize => (
+              <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
           </div>
         </div>
       </div>
