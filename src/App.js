@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Navbar from "./NavBar";
+
 function App() {
   // on load fetch message from BE
   const [articles, setArticles] = useState([])
@@ -14,6 +16,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar></Navbar>
       {/* {articles} */}
       {/* Header */}
       {/* search */}
