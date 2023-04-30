@@ -33,21 +33,21 @@ function Table({ articles }) {
                 {headerGroups.map(headerGroup => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map(column => (
-                      <th {...column.getHeaderProps()}>
+                      <th {...column.getHeaderProps() } >
                         {column.render('Header')}
                       </th>
                     ))}
                   </tr>
                 ))}
               </thead>
-              <tbody {...getTableBodyProps()}>
+              <tbody {...getTableBodyProps()} className="bg-white divide-y divide-gray-200">
                 {rows.map(row => {
                   prepareRow(row)
                   return (
-                    <tr {...row.getRowProps()}>
+                    <tr {...row.getRowProps()} >
                       {row.cells.map(cell => {
                         return (
-                          <td {...cell.getCellProps()}>
+                          <td {...cell.getCellProps()} className="px-6 py-4 whitespace-nowrap max-w-md truncate">
                             {cell.render('Cell')}
                           </td>
                         )
