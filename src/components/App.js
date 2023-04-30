@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
+import Table from "./Table";
 
 function App() {
   // on load fetch message from BE
@@ -13,12 +14,12 @@ function App() {
         setArticles(data)
       })
   }, [])
-
+  
   return (
     <div className="App">
       <Header/>
       {/* {articles} */}
-      {/* Header */}
+      <Table articles={articles}/>
       {/* search */}
       {/*  */}
     </div>
