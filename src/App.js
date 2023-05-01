@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
-import Table from "./Table";
-import NewArticleForm from "./NewArticleForm";
+import { Route, Routes, useNavigate } from "react-router-dom"
+import Header from "./components/Header";
+import Table from "./components/Table";
+import NewArticleForm from "./components/NewArticleForm";
+import Home from "./components/Home";
 
 function App() {
 
@@ -18,9 +20,9 @@ function App() {
           delete obj[key]
         }
       }
-      obj.published = new Date(obj.published).toString().substring(3,15)
-      obj.created_at = new Date(obj.created_at).toString().substring(3,15)
-      obj.updated_at = new Date(obj.updated_at).toString().substring(3,15)
+      obj.published = new Date(obj.published).toString().substring(3, 15)
+      obj.created_at = new Date(obj.created_at).toString().substring(3, 15)
+      obj.updated_at = new Date(obj.updated_at).toString().substring(3, 15)
     }
     return data
   }
@@ -36,13 +38,25 @@ function App() {
   return (
     <div className="App">
       <Header />
+
       <div className="min-h-screen bg-gray-100 text-gray-900">
         <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
           <div className="">
-            <h1 className="text-xl font-semibold">Articles used by Paralegals</h1>
-          </div>
-          <div className="mt-4">
-            <Table articles={articles} />
+            <Routes>
+              <Route
+                path='/'
+                element={<Home/>}
+              />
+              <Route
+                path='/articles'
+                element={<Table articles={articles} />}
+
+              />
+              <Route
+                path='/new-article'
+                element={<NewArticleForm/>}
+              />
+            </Routes>
           </div>
         </main>
       </div>
