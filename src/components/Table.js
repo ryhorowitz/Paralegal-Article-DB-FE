@@ -4,19 +4,44 @@ import { useTable, usePagination } from 'react-table'
 function Table({ articles }) {
 
   const articleData = useMemo(() => articles, [articles])
-  console.log('1st 5 ', articleData.slice(0,5))
+  console.log('1st 5 ', articleData.slice(0, 5))
+  const columnNames = [
+    {
+      Header: '',
+      accessor: 'id'
+    },
+    {
+      Header: 'Title',
+      accessor: 'title'
+    },
+    {
+      Header: 'Published',
+      accessor: 'published'
+    }, {
+      Header: 'Link',
+      accessor: 'link'
+    }, {
+      Header: 'Added',
+      accessor: 'created_at'
+    },
+    {
+      Header: 'Last Updated',
+      accessor: 'updated_at'
+    },
+    {
+      Header: 'Category',
+      accessor: 'category'
+    },
+    {
+      Header: 'Country',
+      accessor: 'country'
+    }
+  ]
   const articleColumns = useMemo(
-    () =>
-      articleData[0] ?
-        Object.keys(articleData[0])
-          .map(key => {
-            return {
-              Header: key,
-              accessor: key
-            }
-          }) :
-        []
-    , [articleData])
+    () => articleData[0] ? columnNames : [], [articleData]
+  )
+
+
 
   const tableInstance = useTable({ columns: articleColumns, data: articleData }, usePagination)
 
@@ -72,37 +97,37 @@ function Table({ articles }) {
               </tbody>
             </table>
             <div className="pagination">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {' << '}
-        </button>{' '}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {'  <  '}
-        </button>{' '}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {'  >  '}
-        </button>{' '}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {' >> '}
-        </button>{' '}
-        <span>
-          Page{' '}
-          <strong>
-            {state.pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-        <select
-          value={state.pageSize}
-          onChange={e => {
-              setPageSize(Number(e.target.value))
-          }}
-        >
-          {[5, 10, 20].map(pageSize => (
-              <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
+              <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                {' << '}
+              </button>{' '}
+              <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+                {'  <  '}
+              </button>{' '}
+              <button onClick={() => nextPage()} disabled={!canNextPage}>
+                {'  >  '}
+              </button>{' '}
+              <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+                {' >> '}
+              </button>{' '}
+              <span>
+                Page{' '}
+                <strong>
+                  {state.pageIndex + 1} of {pageOptions.length}
+                </strong>{' '}
+              </span>
+              <select
+                value={state.pageSize}
+                onChange={e => {
+                  setPageSize(Number(e.target.value))
+                }}
+              >
+                {[5, 10, 20].map(pageSize => (
+                  <option key={pageSize} value={pageSize}>
+                    Show {pageSize}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
