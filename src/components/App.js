@@ -17,6 +17,10 @@ function App() {
           delete obj[key]
         }
       }
+      // console.log('date is', new Date(obj.published).toString().substring(3,15))
+      obj.published = new Date(obj.published).toString().substring(3,15)
+      obj.created_at = new Date(obj.created_at).toString().substring(3,15)
+      obj.updated_at = new Date(obj.updated_at).toString().substring(3,15)
     }
     return data
   }
