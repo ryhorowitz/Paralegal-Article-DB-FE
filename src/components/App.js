@@ -3,14 +3,28 @@ import Header from "./Header";
 import Table from "./Table";
 
 function App() {
-  // on load fetch message from BE
+
   const [articles, setArticles] = useState([])
 
+  function transformArticleData(data) {
+    for (let obj of data) {
+      for (let key in obj) {
+        // console.log('obj is', obj[key])
+        if (typeof obj[key] === 'object') {
+          obj[key] = obj[key].name
+        }
+        if (key === 'country_id' || key === 'category_id') {
+          delete obj[key]
+        }
+      }
+    }
+    return data
+  }
   useEffect(() => {
     fetch('http://localhost:9292/')
       .then(r => r.json())
       .then(data => {
-        // console.log(Array.isArray(data))
+        transformArticleData(data)
         setArticles(data)
       })
   }, [])

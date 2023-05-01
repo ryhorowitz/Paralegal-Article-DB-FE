@@ -4,7 +4,7 @@ import { useTable, usePagination } from 'react-table'
 function Table({ articles }) {
 
   const articleData = useMemo(() => articles, [articles])
-  // console.log('1st 5 memoized', articleData)
+  console.log('1st 5 ', articleData.slice(0,5))
   const articleColumns = useMemo(
     () =>
       articleData[0] ?
@@ -73,16 +73,16 @@ function Table({ articles }) {
             </table>
             <div className="pagination">
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {'<<'}
+          {' << '}
         </button>{' '}
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {'<'}
+          {'  <  '}
         </button>{' '}
         <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {'>'}
+          {'  >  '}
         </button>{' '}
         <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {'>>'}
+          {' >> '}
         </button>{' '}
         <span>
           Page{' '}
