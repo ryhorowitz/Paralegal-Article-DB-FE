@@ -41,8 +41,6 @@ function Table({ articles }) {
     () => articleData[0] ? columnNames : [], [articleData]
   )
 
-
-
   const tableInstance = useTable({ columns: articleColumns, data: articleData }, usePagination)
 
   const { getTableProps,
@@ -86,7 +84,7 @@ function Table({ articles }) {
                     <tr {...row.getRowProps()} >
                       {row.cells.map(cell => {
                         return (
-                          <td {...cell.getCellProps()} className="px-6 py-4 whitespace-nowrap max-w-md truncate">
+                          <td {...cell.getCellProps()} className="px-2 py-4 whitespace-nowrap max-w-md truncate">
                             {cell.render('Cell')}
                           </td>
                         )
