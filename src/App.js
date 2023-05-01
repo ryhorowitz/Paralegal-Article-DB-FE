@@ -8,6 +8,7 @@ import Home from "./components/Home";
 function App() {
 
   const [articles, setArticles] = useState([])
+  const [categories, setCategories] = useState([])
 
   function transformArticleData(data) {
     for (let obj of data) {
@@ -30,8 +31,9 @@ function App() {
     fetch('http://localhost:9292/')
       .then(r => r.json())
       .then(data => {
-        transformArticleData(data)
-        setArticles(data)
+        console.log('data is', data)
+        // transformArticleData(data)
+        // setArticles(data)
       })
   }, [])
 
