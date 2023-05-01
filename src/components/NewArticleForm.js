@@ -11,7 +11,7 @@ function NewArticleForm() {
     console.log('name is', name)
     setForm({
       ...form,
-      [name]: value 
+      [name]: value
     })
   }
   return (
@@ -25,10 +25,28 @@ function NewArticleForm() {
             <TextField label="Title" name="title" onChange={handleChange}></TextField>
             <TextField label="Published" name="published" onChange={handleChange}></TextField>
             <TextField label="Link" name="link" onChange={handleChange}></TextField>
-            <TextField select label="Select Category" name="category">
+            <TextField select label="Select Category" name="category" onChange={handleChange}>
               {/* need to dynamically add children */}
+              <MenuItem value="Sexual Violence">Sexual Violence</MenuItem>
+              <MenuItem value="Human Rights">Human Rights</MenuItem>
+              <MenuItem value="Religious Persecution">Religious Persecution</MenuItem>
+              <MenuItem value="General Report">General Report</MenuItem>
+              <MenuItem value="Political Violence">Political Violence</MenuItem>
+              <MenuItem value="Corruption">Corruption</MenuItem>
+              <MenuItem value="Gang Violence">Gang Violence</MenuItem>
             </TextField>
-            <TextField select label="Select Country" name="country"></TextField>
+            <TextField select label="Select Country" name="country">
+              <MenuItem value="Brazil">Brazil</MenuItem>
+              <MenuItem value="El Salvador">El Salvador</MenuItem>
+              <MenuItem value="Congo">Congo</MenuItem>
+              <MenuItem value="Ecuador">Ecuador</MenuItem>
+              <MenuItem value="Guatemala">Guatemala</MenuItem>
+              <MenuItem value="Honduras">Honduras</MenuItem>
+              <MenuItem value="Jamaica">Jamaica</MenuItem>
+              <MenuItem value="Liberia">Liberia</MenuItem>
+              <MenuItem value="Pakistan">Pakistan</MenuItem>
+              <MenuItem value="Venezuela">Venezuela</MenuItem>
+            </TextField>
             <Button type="submit" variant="contained" color="primary">
               Add Article
             </Button>

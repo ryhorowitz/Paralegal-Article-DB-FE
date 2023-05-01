@@ -31,9 +31,9 @@ function App() {
     fetch('http://localhost:9292/')
       .then(r => r.json())
       .then(data => {
-        console.log('data is', data)
-        // transformArticleData(data)
-        // setArticles(data)
+        // console.log('data is', data)
+        transformArticleData(data)
+        setArticles(data)
       })
   }, [])
 
