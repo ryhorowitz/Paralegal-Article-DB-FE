@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu';
 
 
 
-export default function CategorySelector({ categories }) {
+export default function CategorySelector({ categories, onSelectionChange }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const open = Boolean(anchorEl);
@@ -19,6 +19,7 @@ export default function CategorySelector({ categories }) {
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
+    onSelectionChange(options[index])
   };
   
   const handleClose = () => {
