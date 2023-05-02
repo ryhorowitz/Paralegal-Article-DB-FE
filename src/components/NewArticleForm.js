@@ -8,11 +8,15 @@ function NewArticleForm() {
   function handleChange(e) {
     let name = e.target.name
     let value = e.target.value
-    console.log('name is', name)
+    // console.log('name is', name)
     setForm({
       ...form,
       [name]: value
     })
+  }
+  function handleSubmit(e) {
+    e.preventDefault()
+    alert('you have submited the form', form)
   }
   return (
     <>
@@ -20,12 +24,24 @@ function NewArticleForm() {
         <Typography mb={2} align="center" variant="h2">
           Add Article Form
         </Typography>
-        <form >
+        <form onSubmit={handleSubmit}>
           <Stack spacing={2} width={600}  >
-            <TextField label="Title" name="title" onChange={handleChange}></TextField>
-            <TextField label="Published" name="published" onChange={handleChange}></TextField>
-            <TextField label="Link" name="link" onChange={handleChange}></TextField>
-            <TextField select label="Select Category" name="category" onChange={handleChange}>
+            <TextField label="Title"
+              name="title"
+              onChange={handleChange}>
+            </TextField>
+            <TextField label="Published"
+              name="published"
+              onChange={handleChange}>
+            </TextField>
+            <TextField label="Link"
+              name="link"
+              onChange={handleChange}>
+            </TextField>
+            <TextField select
+              label="Select Category"
+              name="category"
+              onChange={handleChange}>
               {/* need to dynamically add children */}
               <MenuItem value="Sexual Violence">Sexual Violence</MenuItem>
               <MenuItem value="Human Rights">Human Rights</MenuItem>
@@ -35,7 +51,10 @@ function NewArticleForm() {
               <MenuItem value="Corruption">Corruption</MenuItem>
               <MenuItem value="Gang Violence">Gang Violence</MenuItem>
             </TextField>
-            <TextField select label="Select Country" name="country">
+            <TextField select
+              label="Select Country"
+              name="country"
+              onChange={handleChange}>
               <MenuItem value="Brazil">Brazil</MenuItem>
               <MenuItem value="El Salvador">El Salvador</MenuItem>
               <MenuItem value="Congo">Congo</MenuItem>
