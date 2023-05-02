@@ -1,15 +1,24 @@
 import { useState } from "react"
-import { TextField, 
-  Button, 
-  Stack, 
-  Box, 
-  Typography, 
+import {
+  TextField,
+  Button,
+  Stack,
+  Box,
+  Typography,
   MenuItem,
+  Modal
 } from "@mui/material"
 import { DatePicker } from "@mui/x-date-pickers"
+import AddCountryDialog from "./AddCountryDialog"
+import AddCountryModal from "./AddCountryModal"
 
 function NewArticleForm() {
   const [form, setForm] = useState({
+    title: '',
+    published: '',
+    link: '',
+    category: '',
+    country: ''
   })
 
   function handleChange(e) {
@@ -21,6 +30,7 @@ function NewArticleForm() {
       [name]: value
     })
   }
+
   function handleSubmit(e) {
     e.preventDefault()
     alert('you have submited the form', form)
@@ -34,19 +44,23 @@ function NewArticleForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Stack spacing={2} width={600}  >
-            <TextField label="Title"
+            <TextField
+              label="Title"
               name="title"
               onChange={handleChange}>
             </TextField>
-            <DatePicker label="Date Published"/>
-            <TextField label="Link"
+            <DatePicker label="Date Published" />
+            <TextField
+              label="Link"
               name="link"
               onChange={handleChange}>
             </TextField>
-            <TextField select
+            <TextField
+              select
               label="Select Category"
               name="category"
-              onChange={handleChange}>
+              onChange={handleChange}
+              value={form.category}>
               <MenuItem value="Sexual Violence">Sexual Violence</MenuItem>
               <MenuItem value="Human Rights">Human Rights</MenuItem>
               <MenuItem value="Religious Persecution">Religious Persecution</MenuItem>
@@ -55,10 +69,12 @@ function NewArticleForm() {
               <MenuItem value="Corruption">Corruption</MenuItem>
               <MenuItem value="Gang Violence">Gang Violence</MenuItem>
             </TextField>
-            <TextField select
+            <TextField
+              select
               label="Select Country"
               name="country"
-              onChange={handleChange}>
+              onChange={handleChange}
+              value={form.country}>
               <MenuItem value="Brazil">Brazil</MenuItem>
               <MenuItem value="El Salvador">El Salvador</MenuItem>
               <MenuItem value="Congo">Congo</MenuItem>
@@ -69,7 +85,9 @@ function NewArticleForm() {
               <MenuItem value="Liberia">Liberia</MenuItem>
               <MenuItem value="Pakistan">Pakistan</MenuItem>
               <MenuItem value="Venezuela">Venezuela</MenuItem>
+              <MenuItem value="Add">Add New Country</MenuItem>
             </TextField>
+            <AddCountryModal/>
             <Button type="submit" variant="contained" color="primary">
               Add Article
             </Button>
