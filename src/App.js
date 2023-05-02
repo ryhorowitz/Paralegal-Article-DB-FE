@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom"
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
-import Table from "./components/Table";
+import Articles from "./components/Articles";
 import NewArticleForm from "./components/NewArticleForm";
 import Home from "./components/Home";
 
@@ -9,6 +9,7 @@ function App() {
 
   const [articles, setArticles] = useState([])
   const [categories, setCategories] = useState([])
+  const [countries, setCountries] = useState([])
 
   function transformArticleData(data) {
     for (let obj of data) {
@@ -35,7 +36,21 @@ function App() {
         transformArticleData(data)
         setArticles(data)
       })
+    fetch('http://localhost:9292/countries')
+      .then(r => r.json())
+      .then(data => {
+        console.log('data is', data)
+        setCountries(data)
+      })
+
+    fetch('http://localhost:9292/categories')
+      .then(r => r.json())
+      .then(data => {
+        console.log('data is', data)
+        setCategories(data)
+      })
   }, [])
+
 
   return (
     <div className="App">
@@ -50,7 +65,9 @@ function App() {
               />
               <Route
                 path='/articles'
-                element={<Table articles={articles} />}
+                element={<Articles 
+                  articles={articles}
+                  categories={categories}/>}
               />
               <Route
                 path='/Add Article'

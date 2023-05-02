@@ -20,15 +20,35 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function AddCountryModal() {
   const [open, setOpen] = useState(false);
   const [country, setCountry] = useState('')
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  
+  function handleClose () {
+    setCountry('')
+    setOpen(false)
+  } 
+  function handleAddNewCountry(e) {
+    console.log('country is,', country)
+    //post req new country
+    fetch('http://localhost:9292/', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(country)
+    })
+    .then(r => r.json())
+    .then(data => {
+      console.log('data is', data)
+      
+    })
+    handleClose()
+  }
   return (
     <div>
-      <Button onClick={handleOpen}>Add Country to List</Button>
+      <Button onClick={handleOpen}> Add New Country to List</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -42,12 +62,13 @@ export default function BasicModal() {
           <Stack>
             <TextField 
             label="Country Name"
+            value={country}
             onChange={(e) => setCountry(e.target.value)}></TextField>
           </Stack>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button
-            autofocus
-            onClick={() => setOpen(false)}>Submit</Button>
+            autoFocus
+            onClick={handleAddNewCountry}>Submit</Button>
         </Box>
       </Modal>
     </div>

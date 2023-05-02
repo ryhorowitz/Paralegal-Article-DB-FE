@@ -4,7 +4,7 @@ import { useTable, usePagination } from 'react-table'
 function Table({ articles }) {
 
   const articleData = useMemo(() => articles, [articles])
-  console.log('1st 5 ', articleData.slice(0, 5))
+  
   const columnNames = [
     {
       Header: '',

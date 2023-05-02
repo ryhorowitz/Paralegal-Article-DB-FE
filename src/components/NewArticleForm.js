@@ -5,11 +5,9 @@ import {
   Stack,
   Box,
   Typography,
-  MenuItem,
-  Modal
+  MenuItem
 } from "@mui/material"
 import { DatePicker } from "@mui/x-date-pickers"
-import AddCountryDialog from "./AddCountryDialog"
 import AddCountryModal from "./AddCountryModal"
 
 function NewArticleForm() {
@@ -24,7 +22,6 @@ function NewArticleForm() {
   function handleChange(e) {
     let name = e.target.name
     let value = e.target.value
-    // console.log('name is', name)
     setForm({
       ...form,
       [name]: value
@@ -85,9 +82,8 @@ function NewArticleForm() {
               <MenuItem value="Liberia">Liberia</MenuItem>
               <MenuItem value="Pakistan">Pakistan</MenuItem>
               <MenuItem value="Venezuela">Venezuela</MenuItem>
-              <MenuItem value="Add">Add New Country</MenuItem>
+              <AddCountryModal />
             </TextField>
-            <AddCountryModal/>
             <Button type="submit" variant="contained" color="primary">
               Add Article
             </Button>
