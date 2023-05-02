@@ -1,5 +1,12 @@
 import { useState } from "react"
-import { TextField, Button, Stack, Box, Typography, MenuItem } from "@mui/material"
+import { TextField, 
+  Button, 
+  Stack, 
+  Box, 
+  Typography, 
+  MenuItem,
+} from "@mui/material"
+import { DatePicker } from "@mui/x-date-pickers"
 
 function NewArticleForm() {
   const [form, setForm] = useState({
@@ -17,6 +24,7 @@ function NewArticleForm() {
   function handleSubmit(e) {
     e.preventDefault()
     alert('you have submited the form', form)
+    //make a post req that adds to db.
   }
   return (
     <>
@@ -30,10 +38,7 @@ function NewArticleForm() {
               name="title"
               onChange={handleChange}>
             </TextField>
-            <TextField label="Published"
-              name="published"
-              onChange={handleChange}>
-            </TextField>
+            <DatePicker label="Date Published"/>
             <TextField label="Link"
               name="link"
               onChange={handleChange}>
@@ -42,7 +47,6 @@ function NewArticleForm() {
               label="Select Category"
               name="category"
               onChange={handleChange}>
-              {/* need to dynamically add children */}
               <MenuItem value="Sexual Violence">Sexual Violence</MenuItem>
               <MenuItem value="Human Rights">Human Rights</MenuItem>
               <MenuItem value="Religious Persecution">Religious Persecution</MenuItem>
