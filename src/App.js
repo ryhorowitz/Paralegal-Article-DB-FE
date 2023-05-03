@@ -67,7 +67,8 @@ function App() {
                 path='/articles'
                 element={<Articles 
                   articles={articles}
-                  categories={categories}/>}
+                  categories={categories}
+                  countries={countries}/>}
               />
               <Route
                 path='/Add Article'

@@ -1,14 +1,19 @@
 import { useState } from "react";
 import Table from './Table'
 import CategorySelector from "./CategorySelector";
+import CountrySelector from "./CountrySelector";
 
-function Articles({ articles, categories }) {
+function Articles({ articles, categories, countries }) {
   //category selects a category and changes what articles are set to the Table
   const [selectedCategory, setSelectedCategory] = useState('All')
-
+  const [selectedCountry, setSelectedCountry] = useState('All')
   //function that grabs what cat is selected and then filters articles to pass down to Table
-  function onSelectionChange(selection) {
+  function onCategorySelectionChange(selection) {
     setSelectedCategory(selection)
+  }
+
+  function onCountrySelectionChange(selection) {
+    setSelectedCountry(selection)
   }
   const displayArticles = selectedCategory === 'All' ?
     articles
@@ -16,12 +21,14 @@ function Articles({ articles, categories }) {
     categories.find(cat => cat.name === selectedCategory).articles
   console.log('displayArts', displayArticles)
 
-  
-  //find the categories.find( cat => cat.name === selected category)
   return (
     <>
-      {/* add drop down menu to select by category and country */}
-      <CategorySelector categories={categories} onSelectionChange={onSelectionChange} />
+      <CountrySelector 
+      countries={countries} 
+      onSelectionChange={onCountrySelectionChange}/>
+      <CategorySelector 
+      categories={categories} 
+      onSelectionChange={onCategorySelectionChange} />
       <Table articles={displayArticles} />
     </>
   )
