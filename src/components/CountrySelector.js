@@ -14,6 +14,7 @@ export default function CountrySelector({ countries, onSelectionChange }) {
   };
   
   const handleMenuItemClick = (event, index) => {
+    console.log('country index is', index)
     setSelectedIndex(index);
     setAnchorEl(null);
     onSelectionChange(options[index])
