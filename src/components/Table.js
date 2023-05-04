@@ -4,7 +4,7 @@ import { useTable, usePagination } from 'react-table'
 function Table({ articles }) {
 
   const articleData = useMemo(() => articles, [articles])
-  
+
   const columnNames = [
     {
       Header: '',
@@ -59,6 +59,9 @@ function Table({ articles }) {
     prepareRow
   } = tableInstance
 
+  if (articles === {}) {
+    return (<>No Articles</>)
+  }
   return (
 
     <>

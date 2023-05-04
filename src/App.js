@@ -39,7 +39,7 @@ function App() {
     fetch('http://localhost:9292/countries')
       .then(r => r.json())
       .then(data => {
-        console.log('data is', data)
+        // console.log('data is', data)
         setCountries(data)
       })
 
