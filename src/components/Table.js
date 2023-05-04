@@ -56,7 +56,7 @@ function Table({ articles }) {
         id: "Delete",
         Header: "Delete",
         Cell: ({ row }) => (
-          <Button onClick={() => console.log("deleting row", row.values)}>
+          <Button onClick={() => deleteArticle(row.values.id)}>
             Delete
           </Button>
           )
@@ -87,6 +87,19 @@ const { getTableProps,
 
 if (articles === {}) {
   return (<>No Articles</>)
+}
+
+function deleteArticle(id) {
+  console.log('id', id)
+  fetch(`http://localhost:9292/article/${id}`, {
+    method: 'DELETE',
+  })
+  .then( r => r.json())
+  .then( deletedArticle => console.log(deletedArticle))
+}
+
+function editArticle() {
+  
 }
 return (
 
