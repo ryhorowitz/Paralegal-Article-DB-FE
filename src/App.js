@@ -51,7 +51,9 @@ function App() {
       })
   }, [])
 
-
+  function updateArticlesList(data) {
+    setArticles(data)
+  }
   return (
     <div className="App">
       <ResponsiveAppBar />
@@ -72,7 +74,12 @@ function App() {
               />
               <Route
                 path='/Add Article'
-                element={<NewArticleForm />}
+                element={<NewArticleForm 
+                  transformArticleData={transformArticleData}
+                  updateArticlesList={updateArticlesList}
+                  categories={categories}
+                  countries={countries}
+                  />}
               />
             </Routes>
           </div>

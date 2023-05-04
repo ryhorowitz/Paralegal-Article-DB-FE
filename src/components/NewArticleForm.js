@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import dayjs from "dayjs"
 import {
   TextField,
   Button,
@@ -10,28 +12,73 @@ import {
 import { DatePicker } from "@mui/x-date-pickers"
 import AddCountryModal from "./AddCountryModal"
 
-function NewArticleForm() {
+function NewArticleForm({ 
+  categories, 
+  countries, 
+  updateArticlesList,
+  transformArticleData
+ }) {
+  const [date, setDate] = useState(dayjs('2022-04-17'))
   const [form, setForm] = useState({
     title: '',
-    published: '',
     link: '',
     category: '',
     country: ''
   })
+  const navigate = useNavigate()
 
   function handleChange(e) {
     let name = e.target.name
     let value = e.target.value
+
     setForm({
       ...form,
       [name]: value
     })
   }
-
+  function findId(string, prop) {
+    const obj = prop.find(cat => cat.name === string)
+    return obj.id
+  }
   function handleSubmit(e) {
     e.preventDefault()
-    alert('you have submited the form', form)
+    // alert('you have submited the form', form)
+    console.log('new article form', form)
     //make a post req that adds to db.
+    console.log('date is', date)
+
+    const body = {
+      ...form,
+      published: date
+    }
+
+    body.country_id = findId(form.country, countries)
+    body.category_id = findId(form.category, categories)
+    delete body.country
+    delete body.category
+
+    console.log('body is ', body)
+    fetch(`http://localhost:9292/new_article`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body)
+    })
+      .then(r => r.json())
+      .then(data => {
+        console.log('res is', data)
+      })
+      .then( () => {
+        fetch(`http://localhost:9292/`)
+        .then(r => r.json())
+        .then(data => {
+          console.log('fetch get after post', data)
+          transformArticleData(data)
+          updateArticlesList(data)
+        })
+      })
+    navigate('/articles')
   }
   return (
     <>
@@ -46,7 +93,11 @@ function NewArticleForm() {
               name="title"
               onChange={handleChange}>
             </TextField>
-            <DatePicker label="Date Published" />
+            <DatePicker //https://mui.com/x/react-date-pickers/date-picker/
+              label="Date Published"
+              name="published"
+              value={date}
+              onChange={(newDate) => setDate(newDate)} />
             <TextField
               label="Link"
               name="link"

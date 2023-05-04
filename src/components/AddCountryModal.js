@@ -7,6 +7,7 @@ import {
   TextField,
   Stack
 } from '@mui/material'
+import { redirect } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -32,7 +33,7 @@ export default function AddCountryModal() {
   function handleAddNewCountry(e) {
     console.log('country is,', country)
     //post req new country
-    fetch('http://localhost:9292/', {
+    fetch('http://localhost:9292/articles', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,6 +46,7 @@ export default function AddCountryModal() {
       
     })
     handleClose()
+    // redirect useNavigation???
   }
   return (
     <div>
