@@ -49,11 +49,7 @@ function EditModal({ countries, categories}) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    // alert('you have submited the form', form)
-    console.log('new article form', form)
-    //make a post req that adds to db.
-    console.log('date is', date)
-
+    console.log('edit article form', form)
     const body = {
       ...form,
       published: date

@@ -48,7 +48,10 @@ function Table({ articles, countries, categories }) {
         id: "Edit",
         Header: "Edit",
         Cell: ({ row }) => (
-          <EditModal />
+          <EditModal 
+          articleInfo={row.values}
+          countries={countries}
+          categories={categories}/>
           // <Button onClick={() => console.log("editing row", row.values)}>
           //   Edit
           // </Button>
