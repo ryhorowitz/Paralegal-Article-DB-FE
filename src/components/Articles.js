@@ -8,7 +8,7 @@ function Articles({ articles, categories, countries }) {
   const [selectedCountryName, setSelectedCountryName] = useState('All')
   const [selectedCountryObject, setSelectedCountryObject] = useState({})
   const [selectedCategoryObject, setSelectedCategoryObject] = useState({})
-  
+
   function onCategorySelectionChange(selection) {
     setSelectedCategoryName(selection)
     if (selection === 'All') {
@@ -44,7 +44,7 @@ function Articles({ articles, categories, countries }) {
       .then(data => {
         console.log('fetch data is', data)
         displayArticles = data
-    })
+      })
   }
   console.log('displayArts', displayArticles)
 
@@ -56,7 +56,10 @@ function Articles({ articles, categories, countries }) {
       <CategorySelector
         categories={categories}
         onSelectionChange={onCategorySelectionChange} />
-      <Table articles={displayArticles} />
+      <Table
+        articles={displayArticles}
+        countries={countries}
+        categories={categories} />
     </>
   )
 }

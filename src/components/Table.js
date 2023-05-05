@@ -1,8 +1,9 @@
 import { Button } from '@mui/material'
 import { useMemo } from 'react'
 import { useTable, usePagination } from 'react-table'
+import EditModal from './EditModal'
 
-function Table({ articles }) {
+function Table({ articles, countries, categories }) {
 
   const articleData = useMemo(() => articles, [articles])
 
@@ -47,9 +48,10 @@ function Table({ articles }) {
         id: "Edit",
         Header: "Edit",
         Cell: ({ row }) => (
-          <Button onClick={() => console.log("editing row", row.values)}>
-            Edit
-          </Button>
+          <EditModal />
+          // <Button onClick={() => console.log("editing row", row.values)}>
+          //   Edit
+          // </Button>
           )
       },
       {
