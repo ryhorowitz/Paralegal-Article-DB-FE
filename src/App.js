@@ -67,19 +67,22 @@ function App() {
               />
               <Route
                 path='/articles'
-                element={<Articles 
+                element={<Articles
                   articles={articles}
                   categories={categories}
-                  countries={countries}/>}
+                  countries={countries}
+                  updateArticlesList={updateArticlesList}
+                  transformArticleData={transformArticleData}
+                />}
               />
               <Route
                 path='/Add Article'
-                element={<NewArticleForm 
+                element={<NewArticleForm
                   transformArticleData={transformArticleData}
                   updateArticlesList={updateArticlesList}
                   categories={categories}
                   countries={countries}
-                  />}
+                />}
               />
             </Routes>
           </div>

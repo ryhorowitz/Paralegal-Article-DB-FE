@@ -3,7 +3,12 @@ import Table from './Table'
 import CategorySelector from "./CategorySelector";
 import CountrySelector from "./CountrySelector";
 
-function Articles({ articles, categories, countries }) {
+function Articles({ articles, 
+  categories, 
+  countries, 
+  updateArticlesList,
+  transformArticleData
+}) {
   const [selectedCategoryName, setSelectedCategoryName] = useState('All')
   const [selectedCountryName, setSelectedCountryName] = useState('All')
   const [selectedCountryObject, setSelectedCountryObject] = useState({})
@@ -46,7 +51,7 @@ function Articles({ articles, categories, countries }) {
         displayArticles = data
       })
   }
-  console.log('displayArts', displayArticles)
+  // console.log('displayArts', displayArticles)
 
   return (
     <>
@@ -59,7 +64,9 @@ function Articles({ articles, categories, countries }) {
       <Table
         articles={displayArticles}
         countries={countries}
-        categories={categories} />
+        categories={categories} 
+        updateArticlesList={updateArticlesList}
+        transformArticleData={transformArticleData}/>
     </>
   )
 }

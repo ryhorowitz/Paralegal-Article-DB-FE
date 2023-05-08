@@ -3,7 +3,12 @@ import { useMemo } from 'react'
 import { useTable, usePagination } from 'react-table'
 import EditModal from './EditModal'
 
-function Table({ articles, countries, categories }) {
+function Table({ articles, 
+  countries, 
+  categories, 
+  updateArticlesList,
+  transformArticleData
+}) {
 
   const articleData = useMemo(() => articles, [articles])
 
@@ -51,7 +56,9 @@ function Table({ articles, countries, categories }) {
           <EditModal 
           articleInfo={row.values}
           countries={countries}
-          categories={categories}/>
+          categories={categories}
+          updateArticlesList={updateArticlesList}
+          transformArticleData={transformArticleData}/>
           // <Button onClick={() => console.log("editing row", row.values)}>
           //   Edit
           // </Button>
@@ -103,9 +110,6 @@ function deleteArticle(id) {
   .then( deletedArticle => console.log(deletedArticle))
 }
 
-function editArticle() {
-  
-}
 return (
 
   <>

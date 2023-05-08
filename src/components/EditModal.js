@@ -22,14 +22,19 @@ const boxStyle = {
   p: 4,
 };
 
-function EditModal({ countries, categories}) {
+function EditModal({ articleInfo, 
+  countries, 
+  categories, 
+  updateArticlesList,
+  transformArticleData
+}) {
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(dayjs('2022-04-17'))
+  const [date, setDate] = useState(dayjs(articleInfo.published))
   const [form, setForm] = useState({
-    title: '',
-    link: '',
-    category: '',
-    country: ''
+    title: articleInfo.title,
+    link: articleInfo.link,
+    category: articleInfo.category,
+    country: articleInfo.country
   })
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -61,7 +66,7 @@ function EditModal({ countries, categories}) {
     delete body.category
 
     console.log('body is ', body)
-    fetch(`http://localhost:9292/new_article`, {
+    fetch(`http://localhost:9292/article/${articleInfo.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -77,8 +82,9 @@ function EditModal({ countries, categories}) {
         .then(r => r.json())
         .then(data => {
           console.log('fetch get after post', data)
-          // transformArticleData(data)
-          // updateArticlesList(data)
+          transformArticleData(data)
+          updateArticlesList(data)
+          setOpen(false)
         })
       })
   }
@@ -100,9 +106,10 @@ function EditModal({ countries, categories}) {
             <TextField
               label="Title"
               name="title"
+              value={form.title}
               onChange={handleChange}>
             </TextField>
-            <DatePicker //https://mui.com/x/react-date-pickers/date-picker/
+            <DatePicker
               label="Date Published"
               name="published"
               value={date}
@@ -110,6 +117,7 @@ function EditModal({ countries, categories}) {
             <TextField
               label="Link"
               name="link"
+              value={form.link}
               onChange={handleChange}>
             </TextField>
             <TextField

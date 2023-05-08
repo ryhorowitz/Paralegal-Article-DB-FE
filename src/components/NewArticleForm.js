@@ -93,7 +93,7 @@ function NewArticleForm({
               name="title"
               onChange={handleChange}>
             </TextField>
-            <DatePicker //https://mui.com/x/react-date-pickers/date-picker/
+            <DatePicker 
               label="Date Published"
               name="published"
               value={date}
