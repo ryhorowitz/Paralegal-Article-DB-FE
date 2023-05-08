@@ -12,12 +12,13 @@ import {
 import { DatePicker } from "@mui/x-date-pickers"
 import AddCountryModal from "./AddCountryModal"
 
-function NewArticleForm({ 
-  categories, 
-  countries, 
+function NewArticleForm({
+  categories,
+  countries,
   updateArticlesList,
-  transformArticleData
- }) {
+  transformArticleData,
+  updateCountriesList
+}) {
   const [date, setDate] = useState(dayjs('2022-04-17'))
   const [form, setForm] = useState({
     title: '',
@@ -26,7 +27,21 @@ function NewArticleForm({
     country: ''
   })
   const navigate = useNavigate()
+  const countriesList = countries.map(country => {
+    return (
+      <MenuItem key={country.id} value={country.name}>
+        {country.name}
+      </MenuItem>
+    )
+  })
 
+  const categoriesList = categories.map(category => {
+    return (
+      <MenuItem key={category.id} value={category.name}>
+        {category.name}
+      </MenuItem>
+    )
+  })
   function handleChange(e) {
     let name = e.target.name
     let value = e.target.value
@@ -36,10 +51,12 @@ function NewArticleForm({
       [name]: value
     })
   }
+
   function findId(string, prop) {
     const obj = prop.find(cat => cat.name === string)
     return obj.id
   }
+
   function handleSubmit(e) {
     e.preventDefault()
     // alert('you have submited the form', form)
@@ -69,14 +86,14 @@ function NewArticleForm({
       .then(data => {
         console.log('res is', data)
       })
-      .then( () => {
+      .then(() => {
         fetch(`http://localhost:9292/`)
-        .then(r => r.json())
-        .then(data => {
-          console.log('fetch get after post', data)
-          transformArticleData(data)
-          updateArticlesList(data)
-        })
+          .then(r => r.json())
+          .then(data => {
+            console.log('fetch get after post', data)
+            transformArticleData(data)
+            updateArticlesList(data)
+          })
       })
     navigate('/articles')
   }
@@ -93,7 +110,7 @@ function NewArticleForm({
               name="title"
               onChange={handleChange}>
             </TextField>
-            <DatePicker 
+            <DatePicker
               label="Date Published"
               name="published"
               value={date}
@@ -109,13 +126,7 @@ function NewArticleForm({
               name="category"
               onChange={handleChange}
               value={form.category}>
-              <MenuItem value="Sexual Violence">Sexual Violence</MenuItem>
-              <MenuItem value="Human Rights">Human Rights</MenuItem>
-              <MenuItem value="Religious Persecution">Religious Persecution</MenuItem>
-              <MenuItem value="General Report">General Report</MenuItem>
-              <MenuItem value="Political Violence">Political Violence</MenuItem>
-              <MenuItem value="Corruption">Corruption</MenuItem>
-              <MenuItem value="Gang Violence">Gang Violence</MenuItem>
+              {categoriesList}
             </TextField>
             <TextField
               select
@@ -123,17 +134,8 @@ function NewArticleForm({
               name="country"
               onChange={handleChange}
               value={form.country}>
-              <MenuItem value="Brazil">Brazil</MenuItem>
-              <MenuItem value="El Salvador">El Salvador</MenuItem>
-              <MenuItem value="Congo">Congo</MenuItem>
-              <MenuItem value="Ecuador">Ecuador</MenuItem>
-              <MenuItem value="Guatemala">Guatemala</MenuItem>
-              <MenuItem value="Honduras">Honduras</MenuItem>
-              <MenuItem value="Jamaica">Jamaica</MenuItem>
-              <MenuItem value="Liberia">Liberia</MenuItem>
-              <MenuItem value="Pakistan">Pakistan</MenuItem>
-              <MenuItem value="Venezuela">Venezuela</MenuItem>
-              <AddCountryModal />
+                {countriesList}
+              <AddCountryModal updateCountriesList={updateCountriesList} />
             </TextField>
             <Button type="submit" variant="contained" color="primary">
               Add Article

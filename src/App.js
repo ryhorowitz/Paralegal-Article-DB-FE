@@ -54,6 +54,10 @@ function App() {
   function updateArticlesList(data) {
     setArticles(data)
   }
+
+  function updateCountriesList(countryList) {
+    setCountries(countryList)
+  }
   return (
     <div className="App">
       <ResponsiveAppBar />
@@ -82,6 +86,7 @@ function App() {
                   updateArticlesList={updateArticlesList}
                   categories={categories}
                   countries={countries}
+                  updateCountriesList={updateCountriesList}
                 />}
               />
             </Routes>

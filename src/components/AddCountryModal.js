@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-export default function AddCountryModal() {
+export default function AddCountryModal( { updateCountriesList }) {
   const [open, setOpen] = useState(false);
   const [country, setCountry] = useState('')
   const handleOpen = () => setOpen(true);
@@ -33,17 +33,24 @@ export default function AddCountryModal() {
   function handleAddNewCountry(e) {
     console.log('country is,', country)
     //post req new country
-    fetch('http://localhost:9292/articles', {
+    fetch('http://localhost:9292/country', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(country)
+      body: JSON.stringify({name: country})
     })
     .then(r => r.json())
-    .then(data => {
-      console.log('data is', data)
-      
+    .then(country => {
+      console.log('New country is', country)
+    })
+    .then( () => {
+      fetch(`http://localhost:9292/countries`)
+      .then(r => r.json())
+      .then(countriesList => {
+        console.log('fetch get after post', countriesList)
+        updateCountriesList(countriesList)
+      })
     })
     handleClose()
     // redirect useNavigation???
