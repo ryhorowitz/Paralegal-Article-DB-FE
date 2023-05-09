@@ -38,6 +38,23 @@ function EditModal({ articleInfo,
   })
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const countriesList = countries.map(country => {
+    return (
+      <MenuItem key={country.id} value={country.name}>
+        {country.name}
+      </MenuItem>
+    )
+  })
+
+  const categoriesList = categories.map(category => {
+    return (
+      <MenuItem key={category.id} value={category.name}>
+        {category.name}
+      </MenuItem>
+    )
+  })
+
   function handleChange(e) {
     let name = e.target.name
     let value = e.target.value
@@ -126,13 +143,7 @@ function EditModal({ articleInfo,
               name="category"
               onChange={handleChange}
               value={form.category}>
-              <MenuItem value="Sexual Violence">Sexual Violence</MenuItem>
-              <MenuItem value="Human Rights">Human Rights</MenuItem>
-              <MenuItem value="Religious Persecution">Religious Persecution</MenuItem>
-              <MenuItem value="General Report">General Report</MenuItem>
-              <MenuItem value="Political Violence">Political Violence</MenuItem>
-              <MenuItem value="Corruption">Corruption</MenuItem>
-              <MenuItem value="Gang Violence">Gang Violence</MenuItem>
+              {categoriesList}
             </TextField>
             <TextField
               select
@@ -140,17 +151,8 @@ function EditModal({ articleInfo,
               name="country"
               onChange={handleChange}
               value={form.country}>
-              <MenuItem value="Brazil">Brazil</MenuItem>
-              <MenuItem value="El Salvador">El Salvador</MenuItem>
-              <MenuItem value="Congo">Congo</MenuItem>
-              <MenuItem value="Ecuador">Ecuador</MenuItem>
-              <MenuItem value="Guatemala">Guatemala</MenuItem>
-              <MenuItem value="Honduras">Honduras</MenuItem>
-              <MenuItem value="Jamaica">Jamaica</MenuItem>
-              <MenuItem value="Liberia">Liberia</MenuItem>
-              <MenuItem value="Pakistan">Pakistan</MenuItem>
-              <MenuItem value="Venezuela">Venezuela</MenuItem>
-            </TextField>
+              {countriesList}
+              </TextField>
             <Button type="submit" variant="contained" color="primary">
               Update
             </Button>
