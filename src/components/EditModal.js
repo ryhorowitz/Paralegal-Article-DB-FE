@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers"
-import { Button, 
-  Modal, 
-  Typography, 
-  Box, 
-  MenuItem, 
-  TextField, 
-  Stack 
+import {
+  Button,
+  Modal,
+  Typography,
+  Box,
+  MenuItem,
+  TextField,
+  Stack
 } from "@mui/material";
 
 const boxStyle = {
@@ -22,9 +23,9 @@ const boxStyle = {
   p: 4,
 };
 
-function EditModal({ articleInfo, 
-  countries, 
-  categories, 
+function EditModal({ articleInfo,
+  countries,
+  categories,
   updateArticlesList,
   transformArticleData
 }) {
@@ -91,18 +92,10 @@ function EditModal({ articleInfo,
       body: JSON.stringify(body)
     })
       .then(r => r.json())
-      .then(data => {
-        console.log('res is', data)
-      })
-      .then( () => {
-        fetch(`http://localhost:9292/`)
-        .then(r => r.json())
-        .then(data => {
-          console.log('fetch get after post', data)
-          transformArticleData(data)
-          updateArticlesList(data)
-          setOpen(false)
-        })
+      .then(articles => {
+        console.log(articles)
+        transformArticleData(articles)
+        updateArticlesList(articles)
       })
   }
   return (
@@ -119,45 +112,45 @@ function EditModal({ articleInfo,
             Edit Article
           </Typography>
           <form onSubmit={handleSubmit}>
-          <Stack spacing={2} fullwidth="true"  >
-            <TextField
-              label="Title"
-              name="title"
-              value={form.title}
-              onChange={handleChange}>
-            </TextField>
-            <DatePicker
-              label="Date Published"
-              name="published"
-              value={date}
-              onChange={(newDate) => setDate(newDate)} />
-            <TextField
-              label="Link"
-              name="link"
-              value={form.link}
-              onChange={handleChange}>
-            </TextField>
-            <TextField
-              select
-              label="Select Category"
-              name="category"
-              onChange={handleChange}
-              value={form.category}>
-              {categoriesList}
-            </TextField>
-            <TextField
-              select
-              label="Select Country"
-              name="country"
-              onChange={handleChange}
-              value={form.country}>
-              {countriesList}
+            <Stack spacing={2} fullwidth="true"  >
+              <TextField
+                label="Title"
+                name="title"
+                value={form.title}
+                onChange={handleChange}>
               </TextField>
-            <Button type="submit" variant="contained" color="primary">
-              Update
-            </Button>
-          </Stack>
-        </form>
+              <DatePicker
+                label="Date Published"
+                name="published"
+                value={date}
+                onChange={(newDate) => setDate(newDate)} />
+              <TextField
+                label="Link"
+                name="link"
+                value={form.link}
+                onChange={handleChange}>
+              </TextField>
+              <TextField
+                select
+                label="Select Category"
+                name="category"
+                onChange={handleChange}
+                value={form.category}>
+                {categoriesList}
+              </TextField>
+              <TextField
+                select
+                label="Select Country"
+                name="country"
+                onChange={handleChange}
+                value={form.country}>
+                {countriesList}
+              </TextField>
+              <Button type="submit" variant="contained" color="primary">
+                Update
+              </Button>
+            </Stack>
+          </form>
         </Box>
       </Modal>
     </>

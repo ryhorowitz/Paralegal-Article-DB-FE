@@ -43,11 +43,12 @@ function Articles({ articles,
   } else if (selectedCategoryName === 'All' && selectedCountryName !== 'All') {
     displayArticles = countries.find(country => country.name === selectedCountryName).articles
   } else {
-    console.log('Im in the else block')
-    fetch(`http://localhost:9292/articles?country_id=${selectedCountryObject.id}&category_id=${selectedCategoryObject.id}`)
+    // console.log('Im in the else block')
+    fetch(`http://localhost:9292/articles/country/category?country_id=${selectedCountryObject.id}&category_id=${selectedCategoryObject.id}`)
       .then(r => r.json())
       .then(data => {
         console.log('fetch data is', data)
+        // not working as expected but stopped troubleshooting this to get to MVP
         displayArticles = data
       })
   }

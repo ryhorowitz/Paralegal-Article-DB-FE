@@ -29,7 +29,7 @@ function App() {
     return data
   }
   useEffect(() => {
-    fetch('http://localhost:9292/')
+    fetch('http://localhost:9292/articles')
       .then(r => r.json())
       .then(data => {
         // console.log('data is', data)

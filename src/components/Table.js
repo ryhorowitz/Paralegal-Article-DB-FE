@@ -59,9 +59,6 @@ function Table({ articles,
             categories={categories}
             updateArticlesList={updateArticlesList}
             transformArticleData={transformArticleData} />
-          // <Button onClick={() => console.log("editing row", row.values)}>
-          //   Edit
-          // </Button>
         )
       },
       {
@@ -108,91 +105,86 @@ function Table({ articles,
       method: 'DELETE',
     })
       .then(r => r.json())
-      .then(deletedArticle => console.log(deletedArticle))
-      .then(() => {
-        fetch(`http://localhost:9292/`)
-          .then(r => r.json())
-          .then(data => {
-            console.log('fetch get after delete', data)
-            transformArticleData(data)
-            updateArticlesList(data)
-          })
+      .then(articles => {
+        console.log(articles)
+        transformArticleData(articles)
+        updateArticlesList(articles)
       })
-    }
-    return (
+  }
+  return (
 
-      <>
-        <h1 className="text-xl font-semibold">Articles used by Paralegals</h1><div className="mt-5 flex flex-col">
-          <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
-            <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table {...getTableProps()} className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    {headerGroups.map(headerGroup => (
-                      <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                          <th {...column.getHeaderProps()}>
-                            {column.render('Header')}
-                          </th>
-                        ))}
+    <>
+      <h1 className="text-xl font-semibold">Articles used by Paralegals</h1><div className="mt-5 flex flex-col">
+        <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table {...getTableProps()} className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  {headerGroups.map(headerGroup => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map(column => (
+                        <th {...column.getHeaderProps()}>
+                          {column.render('Header')}
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()} className="bg-white divide-y divide-gray-200">
+                  {page.map(row => {
+                    prepareRow(row)
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map(cell => {
+                          return (
+                            <td {...cell.getCellProps()} className="px-2 py-4 whitespace-nowrap max-w-md truncate">
+                              {cell.render('Cell')}
+                            </td>
+                          )
+                        })}
                       </tr>
-                    ))}
-                  </thead>
-                  <tbody {...getTableBodyProps()} className="bg-white divide-y divide-gray-200">
-                    {page.map(row => {
-                      prepareRow(row)
-                      return (
-                        <tr {...row.getRowProps()}>
-                          {row.cells.map(cell => {
-                            return (
-                              <td {...cell.getCellProps()} className="px-2 py-4 whitespace-nowrap max-w-md truncate">
-                                {cell.render('Cell')}
-                              </td>
-                            )
-                          })}
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-                <div className="pagination">
-                  <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                    {' << '}
-                  </button>{' '}
-                  <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-                    {'  <  '}
-                  </button>{' '}
-                  <button onClick={() => nextPage()} disabled={!canNextPage}>
-                    {'  >  '}
-                  </button>{' '}
-                  <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                    {' >> '}
-                  </button>{' '}
-                  <span>
-                    Page{' '}
-                    <strong>
-                      {state.pageIndex + 1} of {pageOptions.length}
-                    </strong>{' '}
-                  </span>
-                  <select
-                    value={state.pageSize}
-                    onChange={e => {
-                      setPageSize(Number(e.target.value))
-                    }}
-                  >
-                    {[5, 10, 20].map(pageSize => (
-                      <option key={pageSize} value={pageSize}>
-                        Show {pageSize}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                    )
+                  })}
+                </tbody>
+              </table>
+              <div className="pagination">
+                <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                  {' << '}
+                </button>{' '}
+                <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+                  {'  <  '}
+                </button>{' '}
+                <button onClick={() => nextPage()} disabled={!canNextPage}>
+                  {'  >  '}
+                </button>{' '}
+                <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+                  {' >> '}
+                </button>{' '}
+                <span>
+                  Page{' '}
+                  <strong>
+                    {state.pageIndex + 1} of {pageOptions.length}
+                  </strong>{' '}
+                </span>
+                <select
+                  value={state.pageSize}
+                  onChange={e => {
+                    setPageSize(Number(e.target.value))
+                  }}
+                >
+                  {[5, 10, 20].map(pageSize => (
+                    <option key={pageSize} value={pageSize}>
+                      Show {pageSize}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
         </div>
-      </>
-    )
-  }
+      </div>
+    </>
+  )
+}
 
-  export default Table
+export default Table

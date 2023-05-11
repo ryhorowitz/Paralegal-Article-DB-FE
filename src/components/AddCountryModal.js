@@ -7,7 +7,7 @@ import {
   TextField,
   Stack
 } from '@mui/material'
-import { redirect } from 'react-router-dom';
+
 
 const style = {
   position: 'absolute',
@@ -31,8 +31,6 @@ export default function AddCountryModal( { updateCountriesList }) {
     setOpen(false)
   } 
   function handleAddNewCountry(e) {
-    console.log('country is,', country)
-    //post req new country
     fetch('http://localhost:9292/country', {
       method: "POST",
       headers: {
@@ -41,20 +39,13 @@ export default function AddCountryModal( { updateCountriesList }) {
       body: JSON.stringify({name: country})
     })
     .then(r => r.json())
-    .then(country => {
-      console.log('New country is', country)
-    })
-    .then( () => {
-      fetch(`http://localhost:9292/countries`)
-      .then(r => r.json())
-      .then(countriesList => {
-        console.log('fetch get after post', countriesList)
-        updateCountriesList(countriesList)
-      })
+    .then(countriesList => {
+      console.log('New country is', countriesList)
+      updateCountriesList(countriesList)
     })
     handleClose()
-    // redirect useNavigation???
   }
+
   return (
     <div>
       <Button onClick={handleOpen}> Add New Country to List</Button>

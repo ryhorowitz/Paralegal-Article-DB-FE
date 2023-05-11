@@ -59,11 +59,6 @@ function NewArticleForm({
 
   function handleSubmit(e) {
     e.preventDefault()
-    // alert('you have submited the form', form)
-    console.log('new article form', form)
-    //make a post req that adds to db.
-    console.log('date is', date)
-
     const body = {
       ...form,
       published: date
@@ -83,17 +78,10 @@ function NewArticleForm({
       body: JSON.stringify(body)
     })
       .then(r => r.json())
-      .then(data => {
-        console.log('res is', data)
-      })
-      .then(() => {
-        fetch(`http://localhost:9292/`)
-          .then(r => r.json())
-          .then(data => {
-            console.log('fetch get after post', data)
-            transformArticleData(data)
-            updateArticlesList(data)
-          })
+      .then(articles => {
+        console.log('res is', articles)
+        transformArticleData(articles)
+        updateArticlesList(articles)
       })
     navigate('/articles')
   }
@@ -134,7 +122,7 @@ function NewArticleForm({
               name="country"
               onChange={handleChange}
               value={form.country}>
-                {countriesList}
+              {countriesList}
               <AddCountryModal updateCountriesList={updateCountriesList} />
             </TextField>
             <Button type="submit" variant="contained" color="primary">
