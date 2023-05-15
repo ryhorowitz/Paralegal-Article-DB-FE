@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom"
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
-import Articles from "./components/Articles";
+import Countries from "./components/Countries";
 import NewArticleForm from "./components/NewArticleForm";
 import Home from "./components/Home";
 
@@ -34,8 +34,8 @@ function App() {
                 element={<Home />}
               />
               <Route
-                path='/articles'
-                element={<Articles
+                path='/countries'
+                element={<Countries
                   countries={countries}
                 />}
               />

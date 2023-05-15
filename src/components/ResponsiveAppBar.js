@@ -13,7 +13,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { Link } from 'react-router-dom';
 
-const pages = ['Articles', 'Add Article'];
+const pages = ['Countries', 'Add Article'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
