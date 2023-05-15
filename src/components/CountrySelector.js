@@ -13,6 +13,9 @@ export default function CountrySelector({ countries, onSelectionChange }) {
     setAnchorEl(event.currentTarget);
   };
   
+  let options = countries.map( country => country.name)
+  options.unshift('All')
+  
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
@@ -22,8 +25,6 @@ export default function CountrySelector({ countries, onSelectionChange }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  let options = countries.map( country => country.name)
-  options.unshift('All')
 
   return (
     <div>

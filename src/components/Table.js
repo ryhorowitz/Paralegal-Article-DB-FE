@@ -3,13 +3,8 @@ import { useMemo } from 'react'
 import { useTable, usePagination } from 'react-table'
 import EditModal from './EditModal'
 
-function Table({ articles,
-  countries,
-  categories,
-  updateArticlesList,
-  transformArticleData
-}) {
-
+function Table({ countries }) {
+  let articles
   const articleData = useMemo(() => articles, [articles])
 
   const columnNames = [
@@ -36,10 +31,6 @@ function Table({ articles,
       accessor: 'updated_at'
     },
     {
-      Header: 'Category',
-      accessor: 'category'
-    },
-    {
       Header: 'Country',
       accessor: 'country'
     }
@@ -56,9 +47,7 @@ function Table({ articles,
           <EditModal
             articleInfo={row.values}
             countries={countries}
-            categories={categories}
-            updateArticlesList={updateArticlesList}
-            transformArticleData={transformArticleData} />
+          />
         )
       },
       {
@@ -95,9 +84,6 @@ function Table({ articles,
     prepareRow
   } = tableInstance
 
-  if (articles === {}) {
-    return (<>No Articles</>)
-  }
 
   function deleteArticle(id) {
     console.log('id', id)
@@ -105,10 +91,9 @@ function Table({ articles,
       method: 'DELETE',
     })
       .then(r => r.json())
-      .then(articles => {
-        console.log(articles)
-        transformArticleData(articles)
-        updateArticlesList(articles)
+      .then(article => {
+        // delete single article
+        console.log(article)
       })
   }
   return (

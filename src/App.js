@@ -7,57 +7,21 @@ import Home from "./components/Home";
 
 function App() {
 
-  const [articles, setArticles] = useState([])
-  const [categories, setCategories] = useState([])
   const [countries, setCountries] = useState([])
+// problem I'm not utilizing my has many relationships
+// article state not necessary 
 
-  function transformArticleData(data) {
-    for (let obj of data) {
-      for (let key in obj) {
-        // console.log('obj is', obj[key])
-        if (typeof obj[key] === 'object') {
-          obj[key] = obj[key].name
-        }
-        if (key === 'country_id' || key === 'category_id') {
-          delete obj[key]
-        }
-      }
-      obj.published = new Date(obj.published).toString().substring(3, 15)
-      obj.created_at = new Date(obj.created_at).toString().substring(3, 15)
-      obj.updated_at = new Date(obj.updated_at).toString().substring(3, 15)
-    }
-    return data
-  }
   useEffect(() => {
-    fetch('http://localhost:9292/articles')
-      .then(r => r.json())
-      .then(data => {
-        // console.log('data is', data)
-        transformArticleData(data)
-        setArticles(data)
-      })
+    
     fetch('http://localhost:9292/countries')
       .then(r => r.json())
       .then(data => {
-        // console.log('data is', data)
         setCountries(data)
-      })
-
-    fetch('http://localhost:9292/categories')
-      .then(r => r.json())
-      .then(data => {
-        // console.log('data is', data)
-        setCategories(data)
       })
   }, [])
 
-  function updateArticlesList(data) {
-    setArticles(data)
-  }
 
-  function updateCountriesList(countryList) {
-    setCountries(countryList)
-  }
+
   return (
     <div className="App">
       <ResponsiveAppBar />
@@ -72,21 +36,13 @@ function App() {
               <Route
                 path='/articles'
                 element={<Articles
-                  articles={articles}
-                  categories={categories}
                   countries={countries}
-                  updateArticlesList={updateArticlesList}
-                  transformArticleData={transformArticleData}
                 />}
               />
               <Route
                 path='/Add Article'
                 element={<NewArticleForm
-                  transformArticleData={transformArticleData}
-                  updateArticlesList={updateArticlesList}
-                  categories={categories}
                   countries={countries}
-                  updateCountriesList={updateCountriesList}
                 />}
               />
             </Routes>

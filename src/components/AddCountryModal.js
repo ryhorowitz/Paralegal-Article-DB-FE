@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-export default function AddCountryModal( { updateCountriesList }) {
+export default function AddCountryModal() {
   const [open, setOpen] = useState(false);
   const [country, setCountry] = useState('')
   const handleOpen = () => setOpen(true);
@@ -40,8 +40,8 @@ export default function AddCountryModal( { updateCountriesList }) {
     })
     .then(r => r.json())
     .then(countriesList => {
+// country to be added to list
       console.log('New country is', countriesList)
-      updateCountriesList(countriesList)
     })
     handleClose()
   }

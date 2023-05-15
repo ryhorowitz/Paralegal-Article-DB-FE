@@ -13,17 +13,12 @@ import { DatePicker } from "@mui/x-date-pickers"
 import AddCountryModal from "./AddCountryModal"
 
 function NewArticleForm({
-  categories,
-  countries,
-  updateArticlesList,
-  transformArticleData,
-  updateCountriesList
+   countries
 }) {
   const [date, setDate] = useState(dayjs('2022-04-17'))
   const [form, setForm] = useState({
     title: '',
     link: '',
-    category: '',
     country: ''
   })
   const navigate = useNavigate()
@@ -35,13 +30,6 @@ function NewArticleForm({
     )
   })
 
-  const categoriesList = categories.map(category => {
-    return (
-      <MenuItem key={category.id} value={category.name}>
-        {category.name}
-      </MenuItem>
-    )
-  })
   function handleChange(e) {
     let name = e.target.name
     let value = e.target.value
@@ -65,9 +53,7 @@ function NewArticleForm({
     }
 
     body.country_id = findId(form.country, countries)
-    body.category_id = findId(form.category, categories)
     delete body.country
-    delete body.category
 
     console.log('body is ', body)
     fetch(`http://localhost:9292/new_article`, {
@@ -80,8 +66,6 @@ function NewArticleForm({
       .then(r => r.json())
       .then(articles => {
         console.log('res is', articles)
-        transformArticleData(articles)
-        updateArticlesList(articles)
       })
     navigate('/articles')
   }
@@ -110,20 +94,12 @@ function NewArticleForm({
             </TextField>
             <TextField
               select
-              label="Select Category"
-              name="category"
-              onChange={handleChange}
-              value={form.category}>
-              {categoriesList}
-            </TextField>
-            <TextField
-              select
               label="Select Country"
               name="country"
               onChange={handleChange}
               value={form.country}>
               {countriesList}
-              <AddCountryModal updateCountriesList={updateCountriesList} />
+              <AddCountryModal  />
             </TextField>
             <Button type="submit" variant="contained" color="primary">
               Add Article
