@@ -17,8 +17,39 @@ function App() {
       })
   }, [])
 
-  function updateCountries(newCountry) {
+  function addNewCountry(newCountry) {
     setCountries([...countries, newCountry])
+  }
+
+  function addNewArticle(article) {
+    const updatedCountries = countries.map( country => {
+      if (country.id === article.country_id) {
+        // this might be bad code? directly mutating state
+        return {
+          ...country,
+          articles: [...country.articles, article]
+          } 
+      }
+      return country
+    })
+    setCountries(updatedCountries)
+  }
+
+  function onDeleteArticle(article) {
+    //find article in state and remove it
+    const updatedCountries = countries.map( c => {
+      if (c.id === article.country_id) {
+        const filteredArticles = c.articles.filter( art => {
+          return article.id !== art.id
+        })
+        return {
+          ...c,
+          articles: filteredArticles
+          } 
+      }
+      return c
+    })
+    setCountries(updatedCountries)
   }
 
   return (
@@ -36,13 +67,15 @@ function App() {
                 path='/countries'
                 element={<Countries
                   countries={countries}
+                  onDeleteArticle={onDeleteArticle}
                 />}
               />
               <Route
                 path='/Add Article'
                 element={<NewArticleForm
                   countries={countries}
-                  updateCountries={updateCountries}
+                  addNewCountry={addNewCountry}
+                  addNewArticle={addNewArticle}
                 />}
               />
             </Routes>

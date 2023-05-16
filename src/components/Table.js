@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { useTable } from 'react-table'
 import EditModal from './EditModal'
 
-function Table({ articles }) {
+function Table({ articles, onDeleteArticle, countries }) {
 
   const tableRows = articles.map(article => {
     return (
@@ -13,10 +13,23 @@ function Table({ articles }) {
         <td>{article.link}</td>
         <td>{article.created_at}</td>
         <td>{article.updated_at}</td>
+        <td>
+          <EditModal
+            article={article}
+            countries={countries} />
+          
+        </td>
+        <td><Button onClick={() => handleDeleteArticle(article.id)}>Delete</Button></td>
       </tr>
     )
   })
-
+  function handleDeleteArticle(id) {
+    fetch(`http://localhost:9292/article/${id}`, {
+      method: 'DELETE',
+    })
+      .then(r => r.json())
+      .then(article => onDeleteArticle(article))
+  }
   return (
     <>
       <table>

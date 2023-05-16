@@ -23,19 +23,13 @@ const boxStyle = {
   p: 4,
 };
 
-function EditModal({ articleInfo,
-  countries,
-  categories,
-  updateArticlesList,
-  transformArticleData
-}) {
+function EditModal({ article, countries }) {
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(dayjs(articleInfo.published))
+  const [date, setDate] = useState(dayjs(article.published))
   const [form, setForm] = useState({
-    title: articleInfo.title,
-    link: articleInfo.link,
-    category: articleInfo.category,
-    country: articleInfo.country
+    title: article.title,
+    link: article.link,
+    country: article.country
   })
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -44,14 +38,6 @@ function EditModal({ articleInfo,
     return (
       <MenuItem key={country.id} value={country.name}>
         {country.name}
-      </MenuItem>
-    )
-  })
-
-  const categoriesList = categories.map(category => {
-    return (
-      <MenuItem key={category.id} value={category.name}>
-        {category.name}
       </MenuItem>
     )
   })
@@ -79,12 +65,10 @@ function EditModal({ articleInfo,
     }
 
     body.country_id = findId(form.country, countries)
-    body.category_id = findId(form.category, categories)
     delete body.country
-    delete body.category
 
     console.log('body is ', body)
-    fetch(`http://localhost:9292/article/${articleInfo.id}`, {
+    fetch(`http://localhost:9292/article/${article.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -94,8 +78,6 @@ function EditModal({ articleInfo,
       .then(r => r.json())
       .then(articles => {
         console.log(articles)
-        transformArticleData(articles)
-        updateArticlesList(articles)
       })
   }
   return (
@@ -129,14 +111,6 @@ function EditModal({ articleInfo,
                 name="link"
                 value={form.link}
                 onChange={handleChange}>
-              </TextField>
-              <TextField
-                select
-                label="Select Category"
-                name="category"
-                onChange={handleChange}
-                value={form.category}>
-                {categoriesList}
               </TextField>
               <TextField
                 select

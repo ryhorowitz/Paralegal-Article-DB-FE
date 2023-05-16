@@ -2,20 +2,19 @@ import { useState } from "react";
 import Table from './Table'
 
 
-function Countries({ countries }) {
+function Countries({ countries, onDeleteArticle }) {
   const [articles, setArticles] = useState([])
 
   function handleClick(clickedCountry) {
     const country = countries.find(country => country.name === clickedCountry)
-    console.log('country is', country)
     setArticles(country.articles)
   }
-  const countriesList = countries.map(country => {
+
+  const countryListItems = countries.map(country => {
     return (
       <li
         onClick={() => handleClick(country.name)}
-        key={country.id}
-      >
+        key={country.id}>
         {country.name}
       </li>
     )
@@ -26,9 +25,12 @@ function Countries({ countries }) {
       <h2>List of Countries</h2>
       <br></br>
       <ul>
-        {countriesList}
+        {countryListItems}
       </ul>
-      <Table articles={articles} />
+      <Table
+        articles={articles}
+        onDeleteArticle={onDeleteArticle} 
+        countries={countries}/>
     </>
   )
 }

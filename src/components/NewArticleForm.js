@@ -12,7 +12,11 @@ import {
 import { DatePicker } from "@mui/x-date-pickers"
 import AddCountryModal from "./AddCountryModal"
 
-function NewArticleForm({ countries, updateCountries }) {
+function NewArticleForm({
+  countries,
+  addNewCountry,
+  addNewArticle
+}) {
   const [date, setDate] = useState(dayjs('2022-04-17'))
   const [form, setForm] = useState({
     title: '',
@@ -53,7 +57,7 @@ function NewArticleForm({ countries, updateCountries }) {
     body.country_id = findId(form.country, countries)
     delete body.country
 
-    console.log('body is ', body)
+    // console.log('body is ', body)
     fetch(`http://localhost:9292/article`, {
       method: "POST",
       headers: {
@@ -62,10 +66,11 @@ function NewArticleForm({ countries, updateCountries }) {
       body: JSON.stringify(body)
     })
       .then(r => r.json())
-      .then(articles => {
-        console.log('res is', articles)
+      .then(article => {
+        // find the country with id and add it to state
+        addNewArticle(article)
       })
-    navigate('/articles')
+    navigate('/Countries')
   }
   return (
     <>
@@ -97,7 +102,7 @@ function NewArticleForm({ countries, updateCountries }) {
               onChange={handleChange}
               value={form.country}>
               {countriesList}
-              <AddCountryModal updateCountries={updateCountries}/>
+              <AddCountryModal addNewCountry={addNewCountry} />
             </TextField>
             <Button type="submit" variant="contained" color="primary">
               Add Article
