@@ -24,7 +24,7 @@ function Countries ({  countries}) {
       <ul>
         {countriesList}
       </ul>
-      {/* <Table articles={articles}/> */}
+      <Table articles={articles}/>
     </>
   )
 }

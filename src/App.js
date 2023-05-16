@@ -8,19 +8,14 @@ import Home from "./components/Home";
 function App() {
 
   const [countries, setCountries] = useState([])
-// problem I'm not utilizing my has many relationships
-// article state not necessary 
 
-  useEffect(() => {
-    
+  useEffect(() => {  
     fetch('http://localhost:9292/countries')
       .then(r => r.json())
       .then(data => {
         setCountries(data)
       })
   }, [])
-
-
 
   return (
     <div className="App">
