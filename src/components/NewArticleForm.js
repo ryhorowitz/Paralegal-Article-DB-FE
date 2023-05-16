@@ -12,9 +12,7 @@ import {
 import { DatePicker } from "@mui/x-date-pickers"
 import AddCountryModal from "./AddCountryModal"
 
-function NewArticleForm({
-   countries
-}) {
+function NewArticleForm({ countries, updateCountries }) {
   const [date, setDate] = useState(dayjs('2022-04-17'))
   const [form, setForm] = useState({
     title: '',
@@ -56,7 +54,7 @@ function NewArticleForm({
     delete body.country
 
     console.log('body is ', body)
-    fetch(`http://localhost:9292/new_article`, {
+    fetch(`http://localhost:9292/article`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +86,7 @@ function NewArticleForm({
               value={date}
               onChange={(newDate) => setDate(newDate)} />
             <TextField
-              label="Link"
+              label="Article URL"
               name="link"
               onChange={handleChange}>
             </TextField>
@@ -99,7 +97,7 @@ function NewArticleForm({
               onChange={handleChange}
               value={form.country}>
               {countriesList}
-              <AddCountryModal  />
+              <AddCountryModal updateCountries={updateCountries}/>
             </TextField>
             <Button type="submit" variant="contained" color="primary">
               Add Article

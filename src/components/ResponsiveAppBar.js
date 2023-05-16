@@ -30,14 +30,12 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <IconButton size='large' edge='start' color='inherit' aria-label='logo'>
-          <NewspaperIcon />
-        </IconButton>
+          <IconButton size='large' edge='start' color='inherit' aria-label='logo'>
+            <NewspaperIcon />
+          </IconButton>
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -48,7 +46,9 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            Paralegal Article Database
+            <Link to={`/Countries`}>
+              Paralegal Article Database
+            </Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

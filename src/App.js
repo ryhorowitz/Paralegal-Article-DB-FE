@@ -17,6 +17,10 @@ function App() {
       })
   }, [])
 
+  function updateCountries(newCountry) {
+    setCountries([...countries, newCountry])
+  }
+
   return (
     <div className="App">
       <ResponsiveAppBar />
@@ -38,6 +42,7 @@ function App() {
                 path='/Add Article'
                 element={<NewArticleForm
                   countries={countries}
+                  updateCountries={updateCountries}
                 />}
               />
             </Routes>

@@ -5,15 +5,6 @@ import EditModal from './EditModal'
 
 function Table({ articles }) {
 
-  // const { country_id,
-  //   created_at,
-  //   id,
-  //   link,
-  //   published,
-  //   title,
-  //   updated_at
-  // } = articles
-
   const tableRows = articles.map(article => {
     return (
       <tr key={article.id}>

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -21,28 +21,29 @@ const style = {
   p: 4,
 };
 
-export default function AddCountryModal() {
+export default function AddCountryModal({ updateCountries }) {
   const [open, setOpen] = useState(false);
   const [country, setCountry] = useState('')
   const handleOpen = () => setOpen(true);
-  
-  function handleClose () {
+
+  function handleClose() {
     setCountry('')
     setOpen(false)
-  } 
+  }
   function handleAddNewCountry(e) {
     fetch('http://localhost:9292/country', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({name: country})
+      body: JSON.stringify({ name: country })
     })
-    .then(r => r.json())
-    .then(countriesList => {
-// country to be added to list
-      console.log('New country is', countriesList)
-    })
+      .then(r => r.json())
+      .then(newCountry => {
+        // country to be added to list
+        console.log('New country is', newCountry)
+        updateCountries(newCountry)
+      })
     handleClose()
   }
 
@@ -60,10 +61,10 @@ export default function AddCountryModal() {
             Enter the Country Below
           </Typography>
           <Stack>
-            <TextField 
-            label="Country Name"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}></TextField>
+            <TextField
+              label="Country Name"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}></TextField>
           </Stack>
           <Button onClick={handleClose}>Cancel</Button>
           <Button
