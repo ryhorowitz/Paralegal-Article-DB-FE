@@ -52,6 +52,21 @@ function App() {
     setCountries(updatedCountries)
   }
 
+  function onUpdateArticle(updatedArticle) {
+    const updatedCountryState = countries.map( country => {
+      if (updatedArticle.country_id === country.id) {
+        const updatedArticlesArray = country.articles.map( oldArticle => {
+          if (oldArticle.id === updatedArticle.id) {
+            return updatedArticle
+          }
+          return oldArticle
+        })
+        country.articles = updatedArticlesArray
+      }
+      return country
+    })
+    setCountries(updatedCountryState)
+  }
   return (
     <div className="App">
       <ResponsiveAppBar />
@@ -68,6 +83,7 @@ function App() {
                 element={<Countries
                   countries={countries}
                   onDeleteArticle={onDeleteArticle}
+                  onUpdateArticle={onUpdateArticle}
                 />}
               />
               <Route

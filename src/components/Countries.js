@@ -2,7 +2,7 @@ import { useState } from "react";
 import Table from './Table'
 
 
-function Countries({ countries, onDeleteArticle }) {
+function Countries({ countries, onDeleteArticle, onUpdateArticle }) {
   const [articles, setArticles] = useState([])
 
   function handleClick(clickedCountry) {
@@ -30,6 +30,7 @@ function Countries({ countries, onDeleteArticle }) {
       <Table
         articles={articles}
         onDeleteArticle={onDeleteArticle} 
+        onUpdateArticle={onUpdateArticle}
         countries={countries}/>
     </>
   )

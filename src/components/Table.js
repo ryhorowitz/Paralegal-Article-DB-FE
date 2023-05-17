@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { useTable } from 'react-table'
 import EditModal from './EditModal'
 
-function Table({ articles, onDeleteArticle, countries }) {
+function Table({ articles, onDeleteArticle, onUpdateArticle, countries }) {
 
   const tableRows = articles.map(article => {
     return (
@@ -16,7 +16,8 @@ function Table({ articles, onDeleteArticle, countries }) {
         <td>
           <EditModal
             article={article}
-            countries={countries} />
+            countries={countries} 
+            onUpdateArticle={onUpdateArticle}/>
           
         </td>
         <td><Button onClick={() => handleDeleteArticle(article.id)}>Delete</Button></td>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers"
 import {
@@ -23,17 +23,27 @@ const boxStyle = {
   p: 4,
 };
 
-function EditModal({ article, countries }) {
+function EditModal({ article, countries, onUpdateArticle }) {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(dayjs(article.published))
   const [form, setForm] = useState({
     title: article.title,
     link: article.link,
-    country: article.country
+    country: article.country_id
   })
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  useEffect(() => {
+    const country = countries.find(country => {
+      return article.country_id === country.id
+    })
+    setForm({
+      ...form,
+      country: country.name
+    })
+  }, [])
+  
   const countriesList = countries.map(country => {
     return (
       <MenuItem key={country.id} value={country.name}>
@@ -41,11 +51,9 @@ function EditModal({ article, countries }) {
       </MenuItem>
     )
   })
-
   function handleChange(e) {
     let name = e.target.name
     let value = e.target.value
-
     setForm({
       ...form,
       [name]: value
@@ -58,7 +66,6 @@ function EditModal({ article, countries }) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log('edit article form', form)
     const body = {
       ...form,
       published: date
@@ -67,7 +74,6 @@ function EditModal({ article, countries }) {
     body.country_id = findId(form.country, countries)
     delete body.country
 
-    console.log('body is ', body)
     fetch(`http://localhost:9292/article/${article.id}`, {
       method: "PATCH",
       headers: {
@@ -76,8 +82,9 @@ function EditModal({ article, countries }) {
       body: JSON.stringify(body)
     })
       .then(r => r.json())
-      .then(articles => {
-        console.log(articles)
+      .then(article => {
+        onUpdateArticle(article)
+        handleClose()
       })
   }
   return (
