@@ -46,7 +46,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            <Link to={`/Countries`}>
+            <Link to={`/`}>
               Paralegal Article Database
             </Link>
           </Typography>
@@ -96,7 +96,6 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -108,7 +107,9 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            Paralegal Article Database
+            <Link to={`/`}>
+              Paralegal Article Database
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
