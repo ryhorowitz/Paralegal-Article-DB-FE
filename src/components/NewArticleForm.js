@@ -79,7 +79,7 @@ function NewArticleForm({
           Add Article Form
         </Typography>
         <form onSubmit={handleSubmit}>
-          <Stack spacing={2} width={600}  >
+          <Stack m={'auto'} spacing={2} width={600}  >
             <TextField
               label="Title"
               name="title"
