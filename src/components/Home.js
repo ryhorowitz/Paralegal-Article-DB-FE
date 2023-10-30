@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material"
+import { Container, Typography } from "@mui/material"
 function Home() {
   return (<Container m={5}>
     <Typography mb={2} align="center" variant="h2">
