@@ -33,7 +33,7 @@ function Countries({ countries, onDeleteArticle, onUpdateArticle }) {
 
   return (
     <>
-      <FormControl fullWidth variant="outlined" sx={{ minWidth: 120 }}>
+      <FormControl fullWidth variant="outlined" sx={{ minWidth: 120, maxWidth: 200 }}>
         <InputLabel id="select-label">Select Country</InputLabel>
         <Select
           labelId="select-label"

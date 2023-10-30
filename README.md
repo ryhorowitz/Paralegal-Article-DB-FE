@@ -1,7 +1,5 @@
 # Getting Started with Paralegal Article Database
 
-This application has two repositories, a front end and a back end. Please clone both to get this application running.
-
 ## Available Scripts
 
 In this project directory, you run:
@@ -16,7 +14,7 @@ You may also see any lint errors in the console.
 
 ## Backend Server
 
-Can be found here [https://github.com/ryhorowitz/phase-3-sinatra-react-project](Backend)
+Can be found here [https://github.com/ryhorowitz/Paralegal-Article-DB-BE](Backend)
 
 ### `bundle install`
 ### `bundle exec rake server`
