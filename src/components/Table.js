@@ -11,7 +11,7 @@ import {
   Paper
 } from '@mui/material'
 import { css } from '@emotion/react'
-import { formatDate } from '../helpers'
+import { formatLongDateString, formatPublishedDate } from '../helpers.mjs'
 
 function createData(title, published, link, added, updated, edit, deleteButton) {
   return { title, published, link, added, updated, edit, deleteButton };
@@ -20,11 +20,11 @@ function createData(title, published, link, added, updated, edit, deleteButton) 
 function ArticleTable({ articles, onDeleteArticle, onUpdateArticle, countries }) {
 
   const rows = articles.map(article => {
-
-    const formatedCreateAt = formatDate(article.created_at)
-    const formatedUpdatedAt = formatDate(article.updated_at)
+    const publishedDate = formatPublishedDate(article.published)
+    const formatedCreateAt = formatLongDateString(article.created_at)
+    const formatedUpdatedAt = formatLongDateString(article.updated_at)
     return createData(article.title,
-      article.published,
+      publishedDate,
       article.link,
       formatedCreateAt,
       formatedUpdatedAt,
