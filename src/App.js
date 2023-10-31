@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom"
-import { createTheme, ThemeProvider } from '@mui/material'
+// import { createTheme, ThemeProvider } from '@mui/material'
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Countries from "./components/Countries";
 import NewArticleForm from "./components/NewArticleForm";
 import Home from "./components/Home";
 
-const theme = createTheme({
-  // insert things I want to override from default
-})
+// const theme = createTheme({
+//   // insert things I want to override from default
+// })
 
 function App() {
 

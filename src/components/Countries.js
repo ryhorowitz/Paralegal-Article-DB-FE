@@ -14,7 +14,7 @@ function Countries({ countries, onDeleteArticle, onUpdateArticle }) {
   }, [countries, selectedCountry])
 
   function handleCountrySelection(e) {
-    console.log('e is', e)
+    // console.log('e is', e)
     const country = countries.find(country => country.name === e.target.value)
     setSelectedCountry(country.name)
     setArticles(country.articles)

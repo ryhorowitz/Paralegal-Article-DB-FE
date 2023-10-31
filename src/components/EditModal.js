@@ -42,8 +42,9 @@ function EditModal({ article, countries, onUpdateArticle }) {
       ...form,
       country: country.name
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  
+
   const countriesList = countries.map(country => {
     return (
       <MenuItem key={country.id} value={country.name}>
